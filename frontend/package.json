@@ -1,0 +1,19 @@
+{
+  "name": "frontend-calendarapp",
+  "version": "1.0.0",
+  "description": "this is the front end of the calendar app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Luciano-Malvicino/CalendarApp.git"
+  },
+  "author": "Luciano Malvicino & Aaron Moreno",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Luciano-Malvicino/CalendarApp/issues"
+  },
+  "homepage": "https://github.com/Luciano-Malvicino/CalendarApp#readme"
+}
