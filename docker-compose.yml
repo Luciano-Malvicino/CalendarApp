@@ -1,24 +1,52 @@
 version: '3'
 services:
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "3001:3001"
-    depends_on:
-      - backend
-    networks:
-      - app-network
-
-  backend:
+  backend-dev:
+    image: my-backend-dev-image
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./backend:/app/backend
     ports:
       - "3000:3000"
     networks:
-      - app-network
+      - devnetwork
+
+  frontend-dev:
+    image: my-frontend-dev-image
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend:/app/frontend
+    ports:
+      - "3001:3001"
+    networks:
+      - devnetwork
+    depends_on:
+      - backend-dev
+
+
+  backend-prod:
+    image: my-backend-prod-image
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    ports:
+      - "3000:3000"
+    networks:
+      - prodnetwork
+
+  frontend-prod:
+    image: my-frontend-prod-image
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    ports:
+      - "3001:3001"
+    networks:
+      - prodnetwork
 
 networks:
-  app-network:
+  devnetwork:
+  prodnetwork:
