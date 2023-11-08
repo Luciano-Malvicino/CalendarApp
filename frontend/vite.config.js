@@ -7,9 +7,4 @@ export default defineConfig({
     host: true,
     port: 3001,
   },
-  build: {
-    rollupOptions: {
-      input: 'src/main.jsx', // Specify the correct path to your entry file
-    },
-  },
 });

@@ -19,6 +19,7 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ./frontend:/app
+      - /app/node_modules
     ports:
       - "3001:3001"
     networks:
@@ -50,6 +51,3 @@ services:
 networks:
   devnetwork:
   prodnetwork:
-
-volumes:
-  frontend:
