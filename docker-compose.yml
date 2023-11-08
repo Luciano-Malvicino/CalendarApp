@@ -6,8 +6,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile.dev
     volumes:
-      - ./backend:/app/backend
-      - C:\Users\lucia\Desktop\Calendarapp:/app/backend:cached
+      - ./backend:/app
     ports:
       - "3000:3000"
     networks:
@@ -19,8 +18,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.dev
     volumes:
-      - ./frontend:/app/frontend
-      - C:\Users\lucia\Desktop\Calendarapp:/app/frontend:cached
+      - ./frontend:/app
     ports:
       - "3001:3001"
     networks:
@@ -52,3 +50,6 @@ services:
 networks:
   devnetwork:
   prodnetwork:
+
+volumes:
+  frontend:
