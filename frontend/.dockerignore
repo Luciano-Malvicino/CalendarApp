@@ -2,3 +2,5 @@
 node_modules
 .vscode
 logs/
+build
+npm-debug.log

@@ -48,6 +48,8 @@ services:
       - "3001:3001"
     networks:
       - prodnetwork
+    depends_on:
+      - backend-prod
 
 networks:
   devnetwork:
