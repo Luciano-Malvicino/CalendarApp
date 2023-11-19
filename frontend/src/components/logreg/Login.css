@@ -1,0 +1,163 @@
+@font-face {
+  font-family: '8Bit';
+  src: url('../../fonts/PressStart2P-Regular.ttf') format('truetype'); /* Update the filename and format as needed */
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: '8Bit', sans-serif !important;
+}
+
+label {
+  color : white;
+  margin-bottom: 3%;
+  margin-left: 2%;
+  vertical-align: middle; /* Align the label text vertically in the middle */
+}
+
+input {
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  margin-left: 2%; /* Remove margin to align with the label */
+  padding: 1.5%; /* Add some padding to the input for better appearance */
+  background-color: transparent; /* or background-color: initial; */
+  border: 0.1em solid white;
+  vertical-align: middle; /* Align the input vertically in the middle */
+  font-family: '8Bit', sans-serif !important;
+  
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  
+  margin-top: 3%;
+  margin-left: 1%;
+}
+
+@media screen and (max-width: 600px) {
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    margin-top: 3%;
+    margin-left: 1%;
+  }
+
+  input {
+    margin-left: 0%;
+    margin-bottom: 0%;
+    
+  }
+
+  form {
+    text-align: center; /* Center items horizontally */
+  }
+
+  .button-container {
+    margin-top: 10%;
+  }
+
+  img {
+    margin-right: 5% !important;
+    padding-bottom: 3%;
+  }
+
+  .forgotPassword {
+    padding-top: 20% !important;
+    font-size: 0.6em !important;
+  }
+  
+}
+
+.input-container input {
+  width: 68%;
+  /* Add any additional styling for your input field */
+}
+
+button {
+  background-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  content: center;
+  justify-content: center;
+  text-align: center;
+  width: 30%;
+  color : white;
+}
+
+.button-container {
+  margin-top: 5%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.select-icon{
+  margin-right: 1%;
+  margin-left: -1%;
+  text-align: center;
+  height: 0.8em;
+  margin-bottom: 0.8%;
+  opacity: 0;
+}
+
+.button-container button {
+  font-size: 1em;
+  margin-bottom: 3%;
+  height: 0.5em;
+  text-align: center;
+  justify-content: center;
+  outline: none !important;
+  outline-style: none !important;
+
+}
+
+.button-container button:hover .select-icon {
+  opacity: 1;
+}
+
+button:active,
+button:focus,
+button:hover,
+button:not(:focus) {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+
+
+.container {
+  position: relative;
+  background-color: #36721C; /* Semi-transparent red for visibility */
+}
+
+img {
+  padding-bottom: 1.6%;
+  padding-right: 3%;
+}
+
+.forgotPassword {
+  padding-top: 4%;
+  font-size: 0.6em !important;
+  width: 40%;
+}
+
+.forgotPassword img{
+  padding-top: 1.4%;
+  padding-right: 1%;
+}
+
+/* Button Animation */
+/* Define the animation */
