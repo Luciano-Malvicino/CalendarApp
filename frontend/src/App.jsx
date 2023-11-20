@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 
 import Home from './components/Home.jsx';
-import Testt from './components/Testt.jsx';
+import Testt from './components/SideNav/SideNav.jsx';
 import Login from './components/logreg/Login.jsx';
 
 function App() {
