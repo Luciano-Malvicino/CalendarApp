@@ -1,3 +1,19 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
 @font-face {
   font-family: '8Bit';
   src: url('../../fonts/PressStart2P-Regular.ttf') format('truetype'); /* Update the filename and format as needed */
@@ -12,14 +28,14 @@ body {
   font-family: '8Bit', sans-serif !important;
 }
 
-label {
+.login-reg-form label {
   color : white;
   margin-bottom: 3%;
   margin-left: 2%;
   vertical-align: middle; /* Align the label text vertically in the middle */
 }
 
-input {
+.login-reg-form input {
   box-sizing: border-box; /* Include padding and border in element's total width and height */
   margin-left: 2%; /* Remove margin to align with the label */
   padding: 1.5%; /* Add some padding to the input for better appearance */
@@ -30,7 +46,7 @@ input {
   
 }
 
-.input-container {
+.login-reg-form .input-container {
   display: flex;
   flex-direction: column;
   
@@ -39,7 +55,7 @@ input {
 }
 
 @media screen and (max-width: 600px) {
-  .input-container {
+  .login-reg-form .input-container {
     display: flex;
     flex-direction: column;
     align-items: center; /* Center items horizontally */
@@ -48,60 +64,60 @@ input {
     margin-left: 1%;
   }
 
-  input {
+  .login-reg-form input {
     margin-left: 0%;
     margin-bottom: 0%;
     
   }
 
-  form {
+  .login-reg-form form {
     text-align: center; /* Center items horizontally */
   }
 
-  .button-container {
+  .login-reg-form .button-container {
     margin-top: 10%;
   }
 
-  img {
+  .login-reg-form img {
     margin-right: 5% !important;
     padding-bottom: 3%;
   }
 
-  .forgotPassword {
+  .login-reg-form .forgotPassword {
     padding-top: 20% !important;
     font-size: 0.6em !important;
   }
 
-  .forgotPasswordReg {
+  .login-reg-form .forgotPasswordReg {
     margin-top: 5%;
     padding-top: 10%;
     font-size: 0.6em !important;
     width: 40%;
   }
   
-  .forgotPasswordReg img{
+  .login-reg-form .forgotPasswordReg img{
     padding-top: 1.4%;
     padding-right: 1%;
   }
 
-  .Recover {
+  .login-reg-form .Recover {
     margin-top: 10%;
     margin-bottom: 30%;
   }
 
-  .input-container .password {
+  .login-reg-form .input-container .password {
     width: 80%;
     /* Add any additional styling for your input field */
   }
   
 }
 
-.input-container input {
+.login-reg-form .input-container input {
   width: 68%;
   /* Add any additional styling for your input field */
 }
 
-button {
+.login-reg-form button {
   background-color: transparent !important;
   outline: none !important;
   box-shadow: none !important;
@@ -113,9 +129,14 @@ button {
   text-align: center;
   width: 30%;
   color : white;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
 }
 
-.button-container {
+.login-reg-form .button-container {
   margin-top: 5%;
   width: 100%;
   display: flex;
@@ -125,7 +146,7 @@ button {
   align-items: center;
 }
 
-.select-icon{
+.login-reg-form .select-icon{
   margin-right: 1%;
   margin-left: -1%;
   text-align: center;
@@ -134,7 +155,7 @@ button {
   opacity: 0;
 }
 
-.button-container button {
+.login-reg-form .button-container button {
   font-size: 1em;
   margin-bottom: 3%;
   height: 0.5em;
@@ -145,14 +166,14 @@ button {
 
 }
 
-.button-container button:hover .select-icon {
+.login-reg-form .button-container button:hover .select-icon {
   opacity: 1;
 }
 
-button:active,
-button:focus,
-button:hover,
-button:not(:focus) {
+.login-reg-form button:active,
+.login-reg-form button:focus,
+.login-reg-form button:hover,
+.login-reg-form button:not(:focus) {
   outline: none !important;
   box-shadow: none !important;
   border: none !important;
@@ -160,39 +181,39 @@ button:not(:focus) {
 
 
 
-.container {
+.login-reg-form .container {
   position: relative;
   background-color: #36721C; /* Semi-transparent red for visibility */
 }
 
-img {
+.login-reg-form img {
   padding-bottom: 1.6%;
   padding-right: 3%;
 }
 
-.forgotPassword {
+.login-reg-form .forgotPassword {
   padding-top: 4%;
   font-size: 0.6em !important;
   width: 40%;
 }
 
-.forgotPassword img{
+.login-reg-form .forgotPassword img{
   padding-top: 1.4%;
   padding-right: 1%;
 }
 
-.forgotPasswordReg {
+.login-reg-form .forgotPasswordReg {
   padding-top: 4%;
   font-size: 0.6em !important;
   width: 40%;
 }
 
-.forgotPasswordReg img{
+.login-reg-form .forgotPasswordReg img{
   padding-top: 1.4%;
   padding-right: 1%;
 }
 
-a {
+.login-reg-form a {
   color: inherit; /* or use a different color */
   text-decoration: none; /* optional: remove underline */
   background-color: transparent !important;
@@ -209,18 +230,18 @@ a {
 }
 
 /* If you want to style visited links differently */
-a:visited,
-a:hover,
-a:focus {
+.login-reg-form a:visited,
+.login-reg-form a:hover,
+.login-reg-form a:focus {
   color: inherit !important; /* or use a different color */
 }
 
 /* If you want to style links on hover */
-a:hover {
+.login-reg-form a:hover {
   color: inherit; /* specify the color you want on hover */
 }
 
-.button-container a {
+.login-reg-form .button-container a {
   font-size: 1em;
   margin-bottom: 3%;
   height: 0.5em;
@@ -231,59 +252,31 @@ a:hover {
 
 }
 
-.button-container a:hover .select-icon {
+.login-reg-form .button-container a:hover .select-icon {
   opacity: 1;
 }
 
-.Recover {
+.login-reg-form .Recover {
   margin-top: 5%;
 
 }
 
-.input-container .password {
+.login-reg-form .input-container .password {
   width: 58%;
   /* Add any additional styling for your input field */
 }
 
-h1 {
+.logo {
   text-align: center;
-
+  font-size: 3.2em;
+  line-height: 1.1;
 }
 
-@media screen and (min-width: 768px) {
-  @media screen and (max-width: 600px) {
-  
-    .input-container .password {
-      width: 50%;
-      /* Add any additional styling for your input field */
-    }
-
-    .input-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center; /* Center items horizontally */
-      justify-content: center; /* Center items vertically */
-      margin-top: 3%;
-      margin-left: 1%;
-    }
-  
-    input {
-      margin-left: 0%;
-      margin-bottom: 0%;
-      
-    }
-  
-    form {
-      text-align: center; /* Center items horizontally */
-    }
-  }
-
-  .logo:hover {
-    cursor: pointer; /* or use a different color */
-  }
-
-
+.logo:hover {
+  cursor: pointer;
 }
 
-/* Button Animation */
-/* Define the animation */
+.response-button {
+  margin-top: 90%;
+  height: 100%;
+}

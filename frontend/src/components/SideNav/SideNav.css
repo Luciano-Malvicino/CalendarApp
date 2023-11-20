@@ -6,13 +6,15 @@
 }
 
 div {
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
   overflow: hidden;
   font-family: '8Bit', sans-serif !important;
 }
 
 .sidenav {
+  margin: 0px;
+  padding: 0px;
   height: 100%;
   width: 74px;
   position: fixed;
@@ -29,15 +31,15 @@ div {
   width: 350px;
 }
 
-.sidenav a img{
+.icon {
+  margin: 0px;
+  padding: 5px;
   width: 64px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-right: 5px;
-  padding-left: 5px;
 }
 
-.sidenav a {
+.navitem {
+  margin: 0px;
+  padding: 0px;
   text-decoration: none;
   font-size: 18px;
   color: #000000;
@@ -47,14 +49,19 @@ div {
 }
 
 .bottom {
+  margin: 0px;
   padding: 0px;
 }
 
-.sidenav a:hover{
+.navitem:hover{
   font-size: 19px;
   background-color: #191919;
   color: white;
   display: flex;
   align-items: center;
-  fill: white;
+  
+}
+
+.navitem:hover #test{
+  filter: invert(100%) sepia(4%) saturate(0%) hue-rotate(267deg) brightness(105%) contrast(109%);
 }

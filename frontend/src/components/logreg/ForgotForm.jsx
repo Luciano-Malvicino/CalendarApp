@@ -6,7 +6,7 @@ import './Login.css';
 function ForgotForm() {
 
     return (
-      <form>
+      <form className='login-reg-form'>
         <div className="input-container">
           <label className="Recover">
             Email &nbsp;&nbsp;  
@@ -16,7 +16,7 @@ function ForgotForm() {
           
 
           <div className="button-container">
-            <button type="button">
+            <button className="response-button" type="button">
               <img className="select-icon" src="../../src/assets/chevron_right.svg" alt="SVG Icon" />
               <p>Recover Password</p>
             </button>

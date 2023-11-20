@@ -1,28 +1,28 @@
-import React from "react";
+import React from 'react';
 import './SideNav.css'
 
 function SideNav() {
   return (
   <div>
-    <nav class="sidenav">
-      <a>
-        <img src='/src/assets/list.svg'></img>
+    <nav className='sidenav'>
+      <a className='navitem'>
+        <img id='test' className='icon' src='/src/assets/list.svg'></img>
         Game Library
       </a>
-      <a>
-        <img src='/src/assets/save.svg'></img>
+      <a className='navitem'>
+        <img id='test' className='icon' src='/src/assets/save.svg'></img>
         User Saves
       </a>
-      <a>
-        <img src='/src/assets/plus.svg'></img>
+      <a className='navitem'>
+        <img id='test' className='icon' src='/src/assets/plus.svg'></img>
         Add ?
       </a>
-      <a>
-        <img src='/src/assets/sun.svg'></img>
+      <a className='navitem'>
+        <img id='test' className='icon' src='/src/assets/sun.svg'></img>
         Light Mode
       </a>
-      <a class='bottom'>
-        <img src='/src/assets/reload.svg'></img>
+      <a className='navitem bottom'>
+        <img id='test' className='icon' src='/src/assets/reload.svg'></img>
         Reload
       </a>
     </nav>

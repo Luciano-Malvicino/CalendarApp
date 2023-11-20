@@ -6,7 +6,7 @@ import './Login.css';
 function RegisterForm() {
 
     return (
-      <form>
+      <form className='login-reg-form'>
         <div className="input-container">
           <label>
             Username
