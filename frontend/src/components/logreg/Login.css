@@ -71,6 +71,28 @@ input {
     padding-top: 20% !important;
     font-size: 0.6em !important;
   }
+
+  .forgotPasswordReg {
+    margin-top: 5%;
+    padding-top: 10%;
+    font-size: 0.6em !important;
+    width: 40%;
+  }
+  
+  .forgotPasswordReg img{
+    padding-top: 1.4%;
+    padding-right: 1%;
+  }
+
+  .Recover {
+    margin-top: 10%;
+    margin-bottom: 30%;
+  }
+
+  .input-container .password {
+    width: 80%;
+    /* Add any additional styling for your input field */
+  }
   
 }
 
@@ -157,6 +179,110 @@ img {
 .forgotPassword img{
   padding-top: 1.4%;
   padding-right: 1%;
+}
+
+.forgotPasswordReg {
+  padding-top: 4%;
+  font-size: 0.6em !important;
+  width: 40%;
+}
+
+.forgotPasswordReg img{
+  padding-top: 1.4%;
+  padding-right: 1%;
+}
+
+a {
+  color: inherit; /* or use a different color */
+  text-decoration: none; /* optional: remove underline */
+  background-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  content: center;
+  justify-content: center;
+  text-align: center;
+  width: 30%;
+  color : white;
+}
+
+/* If you want to style visited links differently */
+a:visited,
+a:hover,
+a:focus {
+  color: inherit !important; /* or use a different color */
+}
+
+/* If you want to style links on hover */
+a:hover {
+  color: inherit; /* specify the color you want on hover */
+}
+
+.button-container a {
+  font-size: 1em;
+  margin-bottom: 3%;
+  height: 0.5em;
+  text-align: center;
+  justify-content: center;
+  outline: none !important;
+  outline-style: none !important;
+
+}
+
+.button-container a:hover .select-icon {
+  opacity: 1;
+}
+
+.Recover {
+  margin-top: 5%;
+
+}
+
+.input-container .password {
+  width: 58%;
+  /* Add any additional styling for your input field */
+}
+
+h1 {
+  text-align: center;
+
+}
+
+@media screen and (min-width: 768px) {
+  @media screen and (max-width: 600px) {
+  
+    .input-container .password {
+      width: 50%;
+      /* Add any additional styling for your input field */
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center items horizontally */
+      justify-content: center; /* Center items vertically */
+      margin-top: 3%;
+      margin-left: 1%;
+    }
+  
+    input {
+      margin-left: 0%;
+      margin-bottom: 0%;
+      
+    }
+  
+    form {
+      text-align: center; /* Center items horizontally */
+    }
+  }
+
+  .logo:hover {
+    cursor: pointer; /* or use a different color */
+  }
+
+
 }
 
 /* Button Animation */

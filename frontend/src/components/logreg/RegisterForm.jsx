@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './Login.css';// Update with your actual context import
+import './Login.css';
 
 
 
-function LoginForm() {
+function RegisterForm() {
 
     return (
       <form>
@@ -14,20 +13,22 @@ function LoginForm() {
           <input type="text" />
           </label>
           <label>
+            Email &nbsp;&nbsp;  
+            <input type="text" />
+          </label>
+          <label>
             Password
             <input type="password" />
           </label>
 
+          
+
           <div className="button-container">
-            <button type="submit">
-              <img className="select-icon" src="../../src/assets/chevron_right.svg" alt="SVG Icon" />
-              <p>Login</p>
-            </button>
-            <a href="/Register" type="button">
+            <button type="button">
               <img className="select-icon" src="../../src/assets/chevron_right.svg" alt="SVG Icon" />
               <p>Register</p>
-            </a>
-            <a href="/Forgot" className="forgotPassword" type="button">
+            </button>
+            <a href="/Forgot" className="forgotPasswordReg" type="button">
               <img className="select-icon" src="../../src/assets/chevron_right.svg" alt="SVG Icon" />
               <p>forgot password</p>
             </a>
@@ -37,4 +38,4 @@ function LoginForm() {
     );
 }
 
-export default LoginForm;
+export default RegisterForm;

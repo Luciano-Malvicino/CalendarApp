@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import {createRoot } from 'react-dom/client'; // Import ReactDOM
 import './Login.css';
-import LoginForm from './LoginForm.jsx';
+import RegisterForm from './RegisterForm.jsx';
 
-function Login() {
+function Register() {
   useEffect(() => {
     const handleResize = () => {
       const canvas = document.getElementById('backgroundCanvas');
@@ -158,7 +158,7 @@ function Login() {
 
       const loginFormContainer = document.createElement('div');
       markerDiv.appendChild(loginFormContainer);
-      createRoot(loginFormContainer).render(<LoginForm />);
+      createRoot(loginFormContainer).render(<RegisterForm />);
 
     } else {
       console.log('Target color not found.');
@@ -172,13 +172,7 @@ function Login() {
     backgroundColor: '#A2ACCA',
   };
 
-  const loginDivStyles = {
-    position: 'absolute',
-    top: '10px', // Adjust as needed
-    left: '50%',
-    transform: 'translateX(-50%)', // Center the div horizontally
-    textAlign: 'center',
-    width: '100%', // Full width
+  const bodyStyles = {
   };
 
   const removeExistingMarkerDivs = () => {
@@ -194,10 +188,18 @@ function Login() {
     window.location.href = '/Login';
   };
 
+  const loginDivStyles = {
+    position: 'absolute',
+    top: '10px', // Adjust as needed
+    left: '50%',
+    transform: 'translateX(-50%)', // Center the div horizontally
+    textAlign: 'center',
+    width: '100%', // Full width
+  };
+
   return (
-    <div >
-      <canvas id="backgroundCanvas" style={canvasStyles}>
-      </canvas>
+    <div style={bodyStyles}>
+      <canvas id="backgroundCanvas" style={canvasStyles}></canvas>
       <div style={loginDivStyles}>
         <h1  className="logo" onClick={handleClick}>Emu  Cloud</h1>
       </div>
@@ -205,4 +207,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
