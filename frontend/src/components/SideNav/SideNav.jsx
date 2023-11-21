@@ -3,7 +3,7 @@ import './SideNav.css'
 
 function SideNav() {
   return (
-  <div>
+  <div className="side-div">
     <nav className='sidenav'>
       <a className='navitem'>
         <img id='test' className='icon' src='/src/assets/list.svg'></img>
