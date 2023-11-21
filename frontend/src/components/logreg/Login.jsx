@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import {createRoot } from 'react-dom/client'; // Import ReactDOM
 import './Login.css';
+import { createPortal } from 'react-dom';
 import LoginForm from './LoginForm.jsx';
 
 function Login() {
@@ -15,12 +16,10 @@ function Login() {
         // Remove the existing marker div
         const existingMarkerDiv = document.getElementById('markerDiv');
         if (existingMarkerDiv) {
-          existingMarkerDiv.remove();
+          removeExistingMarkerDivs();
         }
-
-        removeExistingMarkerDivs();
+        
         drawCanvas(ctx, canvas, backgroundImage);
-        removeExistingMarkerDivs();
         drawCanvas(ctx, canvas, backgroundImage);
 
       };
@@ -147,19 +146,13 @@ function Login() {
     
       // Create a yellow div around the found area
     
-      const markerDiv = document.createElement('div');
+      const markerDiv = document.getElementById('markerDiv')
       markerDiv.className = 'markerDiv'; // Added class for easier removal
       markerDiv.style.position = 'absolute';
       markerDiv.style.top = `${(startY - markerSize / 2) * yScale}px`;
       markerDiv.style.left = `${(startX - markerSize / 2) * xScale}px`;
       markerDiv.style.width = `${areaWidth * xScale}px`;
       markerDiv.style.height = `${areaHeight * yScale}px`;
-      document.body.appendChild(markerDiv);
-
-      const loginFormContainer = document.createElement('div');
-      markerDiv.appendChild(loginFormContainer);
-      createRoot(loginFormContainer).render(<LoginForm />);
-
     } else {
       console.log('Target color not found.');
     }
@@ -181,13 +174,20 @@ function Login() {
     width: '100%', // Full width
   };
 
-  const removeExistingMarkerDivs = () => {
+  const clearMarkerDivStyles = () => {
     const existingMarkerDivs = document.querySelectorAll('.markerDiv');
-
+  
     existingMarkerDivs.forEach((div) => {
-      div.remove();
+      div.style = ''; // Clear all styles
     });
   };
+  
+  // ...
+  
+  const removeExistingMarkerDivs = () => {
+    clearMarkerDivStyles();
+  };
+  
 
   const handleClick = () => {
     // Replace '/your-target-page' with the actual path of the page you want to navigate to
@@ -196,6 +196,9 @@ function Login() {
 
   return (
     <div >
+      <div id="markerDiv">
+          <LoginForm />
+      </div>
       <canvas id="backgroundCanvas" style={canvasStyles}>
       </canvas>
       <div style={loginDivStyles}>

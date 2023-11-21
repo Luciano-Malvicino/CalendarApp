@@ -12,17 +12,15 @@ import GameList from './components/GameLibrary/GameList.jsx';
 
 function App() {
   return (
-    <Router>
         <Routes basename = '/'>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/GameList" element={<GameList />} />
-          <Route path="/SideNav" element={<SideNav />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Register" element={<Register />} />
-          <Route path="/Forgot" element={<Forgot />} />
-          <Route path="/Password" element={<Password />} />
+            <Route exact path="/" element={<Home />} />
+            <Route path="/GameList" element={<GameList />} />
+            <Route path="/SideNav" element={<SideNav />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Register" element={<Register />} />
+            <Route path="/Forgot" element={<Forgot />} />
+            <Route path="/Password" element={<Password />} />
         </Routes>
-    </Router>
   );
 }
 

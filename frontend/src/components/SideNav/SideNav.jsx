@@ -15,10 +15,12 @@ function SideNav() {
   };
 
   return (
-  <div className="side-div">
-    <nav className='sidenav'>
-      <a className='navitem'>
-        <img id='test' className='icon' src='/src/assets/list.svg'></img>
+  <div className='side-div'>
+    <nav className={`side-nav ${isMobileMenuVisible ? 'mobile-hidden' : ''}`}>
+      <a className='nav-item' onMouseDown={selectNavItem}>
+        <div>
+          <img id='side-svg' className='icon' src='/src/assets/list.svg'></img>
+        </div>
         Game Library
       </a>
       <a className='nav-item' onMouseDown={selectNavItem}>
