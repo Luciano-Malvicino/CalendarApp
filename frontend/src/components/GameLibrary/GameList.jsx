@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Description from './Description';
 import './GameList.css'
 
@@ -64,7 +64,18 @@ function selectNavItem(event) {
 }
 
 function GameList() {
-  const [selectedGame, setSelectedGame] = useState(null);
+  const [selectedGame, setSelectedGame] = useState({
+    description: '',
+    length: '',
+    rating: '',
+    publisher: '',
+    genre: '',
+    game: ''
+  });
+
+  useEffect(() => {
+    handleDivClick('mario'); // Set the default game
+  }, []);  
 
   const handleDivClick = (gameName) => {
     setSelectedGame(gameName);
@@ -84,7 +95,7 @@ function GameList() {
         <div id='metroid' className='card-img' onMouseOver={ handleMouseOver }>
           <img className='game-img' src='/src/assets/metroid.jpg'/>
         </div>
-        <div id='pokemom' className='card-img' onMouseOver={ handleMouseOver }>
+        <div id='pokemon' className='card-img' onMouseOver={ handleMouseOver }>
           <img className='game-img' src='/src/assets/pokemon.jpg'/>
         </div>
         <div id='mario' className='card-img' onMouseOver={ handleMouseOver }>

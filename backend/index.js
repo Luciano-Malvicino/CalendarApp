@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import User from './models/emucloud.js';
+import GameInfo from './models/gameinfo.js';
 import bodyParser from 'body-parser'; // Import body-parser to parse incoming JSON data
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
@@ -122,6 +123,20 @@ app.post('/api/Register', async (req, res) => {
 
 app.post('/api/login', passport.authenticate('local'), (req,res) => {
   res.json({ success: true, user: req.user });
+});
+
+app.get('/api/gameinfo', async (req, res) => {
+  const { selectedGame } = req.query;
+  try {
+    const game = await GameInfo.findOne({ game: selectedGame });
+    if (game) {
+      res.json(game);
+    } else {
+      res.status(404).json({ error: 'Game not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 
