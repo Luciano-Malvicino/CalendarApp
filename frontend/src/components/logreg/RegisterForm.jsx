@@ -1,30 +1,70 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate  } from 'react-router-dom';
 import './Login.css';
 
 
 
 function RegisterForm() {
 
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    
+    const navigate  = useNavigate ();
+
+    const handleRegister = async (event) => {
+      try{
+        event.preventDefault(); // Prevent the default form submission behavior
+        
+        const response = await fetch('http://localhost:3000/api/Register',{
+          method: 'POST',
+          headers : {
+            'Content-Type': 'application/json',
+          },
+          body : JSON.stringify({username , password, email})
+        });
+
+      if(response.ok)
+      {
+        const data = await response.json();
+
+        if(data.success == true)
+        {
+          console.log("Account Created")
+          navigate ('/Login');
+        }
+        else
+        {
+          console.log("Failed to Register")
+        }
+
+      }
+    }
+    catch {
+      return
+    }
+  }
+
     return (
-      <form className='login-reg-form'>
+      <form className='login-reg-form' onSubmit={handleRegister}>
         <div className="input-container">
           <label>
             Username
-          <input type="text" />
+          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
           </label>
           <label>
             Email &nbsp;&nbsp;  
-            <input type="text" />
+            <input type="text" value={email} onChange={(e) => setEmail(e.target.value)}/>
           </label>
           <label>
             Password
-            <input type="password" />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           </label>
 
           
 
           <div className="button-container">
-            <button type="button">
+            <button type="submit">
               <img className="select-icon" src="../../src/assets/chevron_right.svg" alt="SVG Icon" />
               <p>Register</p>
             </button>

@@ -7,6 +7,7 @@ import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import cors from 'cors';
 import session from 'express-session';
+import bcrypt from 'bcrypt'
 
 
 const app = express();
@@ -51,10 +52,21 @@ passport.deserializeUser(async (id, done) => {
 passport.use(new LocalStrategy(
   async function(username, password, done) {
     try {
-      const user = await User.findOne({ username, password });
+      console.log("Attempted");
+      console.log(password);
+      const hashedPassword = await bcrypt.hash(password, 10);
+      console.log(hashedPassword);
+      const user = await User.findOne({username});
 
       if (!user) {
         return done(null, false, { message: 'Incorrect username or password' });
+      }
+
+      const passwordMatch = await bcrypt.compare(password, user.password);
+
+      if(!passwordMatch)
+      {
+        const passwordMatch = await bcrypt.compare(password, user.password);
       }
 
       return done(null, user);
@@ -98,12 +110,16 @@ app.get('/api/users', async (req, res) => {
 app.post('/api/Register', async (req, res) => {
   try {
     // Extract user data from the request body
+    console.log("Tried to register")
+
     const { username, password, email } = req.body;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user instance
     const newUser = new User({
       username,
-      password,
+      password : hashedPassword,
       email,
       date : '2023-11-20T12:00:00.000+00:00',
       reset : false,
@@ -114,7 +130,8 @@ app.post('/api/Register', async (req, res) => {
     await newUser.save();
 
     // Respond with the newly created user
-    res.json(newUser);
+    res.json({success:true , user : newUser});
+    console.log(hashedPassword)
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -138,8 +155,6 @@ app.get('/api/gameinfo', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
 
 // Start the server
 app.listen(port, () => {
