@@ -1,0 +1,32 @@
+.text-flexbox {
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.descript-container {
+  width: 60%;
+  padding-right: 5%;
+}
+
+.extra-info {
+  padding-left: 5%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.description-text {
+  font-size: 12px;
+}
+
+.alt-text {
+  font-size: 14px;
+}
+
+.description-title {
+  font-size: 32px;
+}

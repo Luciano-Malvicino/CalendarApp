@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './SideNav.css'
 
 function selectNavItem(event) {
-  var navItems = document.querySelectorAll('.nav-item');
+  let navItems = document.querySelectorAll('.nav-item');
   navItems.forEach(item => item.classList.remove('selected'));
   event.currentTarget.classList.add('selected');
 }
@@ -15,10 +15,12 @@ function SideNav() {
   };
 
   return (
-  <div className="side-div">
-    <nav className='sidenav'>
-      <a className='navitem'>
-        <img id='test' className='icon' src='/src/assets/list.svg'></img>
+  <div className='side-div'>
+    <nav className={`side-nav ${isMobileMenuVisible ? 'mobile-hidden' : ''}`}>
+      <a className='nav-item' onMouseDown={selectNavItem}>
+        <div>
+          <img id='side-svg' className='icon' src='/src/assets/list.svg'></img>
+        </div>
         Game Library
       </a>
       <a className='nav-item' onMouseDown={selectNavItem}>
