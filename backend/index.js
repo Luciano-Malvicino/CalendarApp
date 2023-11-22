@@ -4,14 +4,45 @@ import User from './models/emucloud.js';
 import bodyParser from 'body-parser'; // Import body-parser to parse incoming JSON data
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
+import cors from 'cors';
+import session from 'express-session';
+
 
 const app = express();
 const port = process.env.PORT || 3000; // Use the PORT environment variable if set, or default to 3000
 const connectionString = 'mongodb://emucloud:%40Letmein@3.81.208.209:27017';
 
+app.use(cors());
+
+app.use(cors({
+  origin: '*',
+}));
+
+
+
 // Oauth Authentication //
 
+app.use(session({ secret: 'doggy-dog-gonna-dog-dog', resave: false, saveUninitialized: false }));
+
 app.use(passport.initialize());
+
+app.use(passport.session());
+
+app.use(bodyParser.json());
+
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (error) {
+    done(error);
+  }
+});
 
 
 // Database Setup //
@@ -19,17 +50,13 @@ app.use(passport.initialize());
 passport.use(new LocalStrategy(
   async function(username, password, done) {
     try {
-      const { username, password } = req.body;
-  
-      // Find the user by username and password in the database
       const user = await User.findOne({ username, password });
-  
+
       if (!user) {
-        return done(null, false, { message : 'Incorrect username or password' });
+        return done(null, false, { message: 'Incorrect username or password' });
       }
-  
-      // Respond with the user data
-      return done(null,user);
+
+      return done(null, user);
     } catch (error) {
       console.error(error);
       return done(error);
@@ -94,7 +121,6 @@ app.post('/api/Register', async (req, res) => {
 });
 
 app.post('/api/login', passport.authenticate('local'), (req,res) => {
-  console.log("Login");
   res.json({ success: true, user: req.user });
 });
 

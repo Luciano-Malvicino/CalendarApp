@@ -15,8 +15,11 @@ function Forgot() {
         // Remove the existing marker div
         const existingMarkerDiv = document.getElementById('markerDiv');
         if (existingMarkerDiv) {
-          existingMarkerDiv.remove();
+          removeExistingMarkerDivs();
         }
+        
+        drawCanvas(ctx, canvas, backgroundImage);
+        drawCanvas(ctx, canvas, backgroundImage);
 
         removeExistingMarkerDivs();
         drawCanvas(ctx, canvas, backgroundImage);
@@ -147,18 +150,13 @@ function Forgot() {
     
       // Create a yellow div around the found area
     
-      const markerDiv = document.createElement('div');
+      const markerDiv = document.getElementById('markerDiv')
       markerDiv.className = 'markerDiv'; // Added class for easier removal
       markerDiv.style.position = 'absolute';
       markerDiv.style.top = `${(startY - markerSize / 2) * yScale}px`;
       markerDiv.style.left = `${(startX - markerSize / 2) * xScale}px`;
       markerDiv.style.width = `${areaWidth * xScale}px`;
       markerDiv.style.height = `${areaHeight * yScale}px`;
-      document.body.appendChild(markerDiv);
-
-      const loginFormContainer = document.createElement('div');
-      markerDiv.appendChild(loginFormContainer);
-      createRoot(loginFormContainer).render(<ForgotForm />);
 
     } else {
       console.log('Target color not found.');
@@ -175,12 +173,18 @@ function Forgot() {
   const bodyStyles = {
   };
 
-  const removeExistingMarkerDivs = () => {
+  const clearMarkerDivStyles = () => {
     const existingMarkerDivs = document.querySelectorAll('.markerDiv');
-
+  
     existingMarkerDivs.forEach((div) => {
-      div.remove();
+      div.style = ''; // Clear all styles
     });
+  };
+  
+  // ...
+  
+  const removeExistingMarkerDivs = () => {
+    clearMarkerDivStyles();
   };
 
   const handleClick = () => {
@@ -199,6 +203,9 @@ function Forgot() {
 
   return (
     <div style={bodyStyles}>
+      <div id="markerDiv">
+        <ForgotForm />
+      </div>
       <canvas id="backgroundCanvas" style={canvasStyles}></canvas>
       <div style={loginDivStyles}>
         <h1  className="logo" onClick={handleClick}>Emu  Cloud</h1>

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
 import './Login.css';// Update with your actual context import
 
 
 
 function LoginForm() {
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     
+    const navigate  = useNavigate ();
 
     const handleLogin = async (event) => {
       try{
@@ -15,7 +17,7 @@ function LoginForm() {
         
         const response = await fetch('http://localhost:3000/api/login',{
           method: 'POST',
-          header : {
+          headers : {
             'Content-Type': 'application/json',
           },
           body : JSON.stringify({username , password})
@@ -23,7 +25,18 @@ function LoginForm() {
 
       if(response.ok)
       {
-        const data = await reponse.json();
+        const data = await response.json();
+
+        if(data.success == true)
+        {
+          console.log("Logged In")
+          navigate ('/Password');
+        }
+        else
+        {
+          console.log("failed to login")
+        }
+
       }
     }
     catch {
