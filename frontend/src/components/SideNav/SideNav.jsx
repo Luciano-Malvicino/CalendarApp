@@ -52,31 +52,31 @@ function SideNav() {
     <div className='mobile-toggle-container'>
         <img className='mobile-toggle mobile-icon' src='/src/assets/menu.svg' onClick={toggleMobileMenu}/>
         <div className={`mobile-menu ${isMobileMenuVisible ? 'visible' : ''}`}>
-          <a className='mobile-nav-item'>
+          <a className='mobile-nav-item' onClick={selectNavItem}>
             <div>
               <img id='side-svg' className='mobile-icon' src='/src/assets/list.svg'></img>
             </div>
             Game Library
           </a>
-          <a className='mobile-nav-item'>
+          <a className='mobile-nav-item' onClick={selectNavItem}>
             <div>
               <img id='side-svg' className='mobile-icon' src='/src/assets/save.svg'></img>
             </div>
             User Saves
           </a>
-          <a className='mobile-nav-item'>
+          <a className='mobile-nav-item' onClick={selectNavItem}>
             <div>
               <img id='side-svg' className='mobile-icon' src='/src/assets/plus.svg'></img>
             </div>
             Add ?
           </a>
-          <a className='mobile-nav-item'>
+          <a className='mobile-nav-item' onClick={selectNavItem}>
             <div>
               <img id='side-svg' className='mobile-icon' src='/src/assets/sun.svg'></img>
             </div>
             Light Mode
           </a>
-          <a className='mobile-nav-item'>
+          <a className='mobile-nav-item' onClick={selectNavItem}>
             <div>
               <img id='side-svg' className='mobile-icon' src='/src/assets/reload.svg'></img>
             </div>

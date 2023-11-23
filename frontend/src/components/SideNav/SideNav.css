@@ -1,6 +1,6 @@
 @font-face {
   font-family: '8Bit';
-  src: url('../../fonts/PressStart2P-Regular.ttf') format('truetype'); /* Update the filename and format as needed */
+  src: url('../../fonts/PressStart2P-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -77,18 +77,17 @@
   filter: invert(100%) sepia(4%) saturate(0%) hue-rotate(267deg) brightness(105%) contrast(109%);
 }
 
-/* Add this style for mobile toggle button and menu */
 .mobile-toggle-container {
-  display: none; /* Initially hide the mobile toggle button container */
+  display: none;
   background-color: #B1BBD4;
 }
 
 .mobile-toggle {
-  display: block; /* Initially show the mobile toggle button */
+  display: block;
 }
 
 .mobile-menu {
-  display: none; /* Initially hide the mobile menu */
+  display: none;
   width: 100%;
   background-color: #B1BBD4;
   align-items: center;
@@ -96,32 +95,29 @@
 
 .mobile-menu.visible {
   display: block;
-  flex-direction: column; /* Stack items vertically in mobile view */
+  flex-direction: column;
 }
 
 .mobile-icon {
   width: 42px;
-  margin-right: 10px; /* Adjust spacing between icon and text */
+  margin-right: 10px;
+  margin-left: 5px;
 }
 
 .mobile-nav-item {
   font-size: 14px;
   color: black;
   display: flex;
-  align-items: center; /* Center items vertically */
+  align-items: center;
   transition: 0.5s;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 810px) {
   .side-nav {
-    display: none; /* Hide the desktop side nav in mobile view */
+    display: none;
   }
 
   .mobile-toggle-container {
-    display: block; /* Show the mobile toggle button container in mobile view */
-  }
-
-  .mobile-toggle {
-    /* Style your mobile toggle button as needed */
+    display: block;
   }
 }

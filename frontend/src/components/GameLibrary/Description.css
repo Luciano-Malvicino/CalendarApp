@@ -3,16 +3,19 @@
   margin-right: 2.5%;
   height: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
+  width:fit-content;
 }
 
-.descript-container {
+.description-container {
   width: 60%;
-  padding-right: 5%;
+  padding-right: 2%;
 }
 
 .extra-info {
-  padding-left: 5%;
+  padding-left: 2%;
   width: 40%;
   display: flex;
   flex-direction: column;
@@ -28,5 +31,44 @@
 }
 
 .description-title {
+  font-size: 24px;
+}
+
+.game-title {
+  text-align: center;
   font-size: 32px;
+}
+
+@media screen and (max-width: 810px) {
+  .text-flexbox {
+    flex-direction: column;
+  }
+
+  .description-container {
+    width: auto;
+    padding-right: 0%;
+  }
+
+  .description-text {
+    text-align: left;
+    margin-left: 15px;
+    font-size: 12px;
+  }
+
+  .game-title {
+    font-size: 20px;
+  }
+
+  .extra-info {
+    width: auto;
+  }
+
+  .description-title{
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .alt-text {
+    font-size: 12px;
+  }
 }

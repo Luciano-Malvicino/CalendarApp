@@ -8,7 +8,8 @@ function Description({ selectedGame }) {
     rating: '',
     publisher: '',
     genre: '',
-    game: ''
+    game: '',
+    name: ''
   });
 
   useEffect(() => {
@@ -29,27 +30,30 @@ function Description({ selectedGame }) {
   }, [selectedGame]);
   
   return (
-    <div className='text-flexbox'>
-      <div className='descript-container'>
-        <p className='description-title'>Description</p>
-        <p id='description' className='description-text'>{ selectedGameInfo.description }</p>
-      </div>
-      <div className='extra-info'>
-        <div className='alt-div'>
-          <p className='alt-text'>Average Length: </p>
-          <p id='average-length' className='alt-text'>{ selectedGameInfo.length }</p>
+    <div>
+      <p className='game-title'>{ selectedGameInfo.name }</p>
+      <div className='text-flexbox'>
+        <div className='description-container'>
+          <p className='description-title'>Description</p>
+          <p id='description' className='description-text'>{ selectedGameInfo.description }</p>
         </div>
-        <div className='alt-div'>
-          <p className='alt-text'>Rating: </p>
-          <p id='rating' className='alt-text'>{ selectedGameInfo.rating }</p>
-        </div>
-        <div className='alt-div'>
-          <p className='alt-text'>Publisher: </p>
-          <p id='playtime' className='alt-text'>{ selectedGameInfo.publisher }</p>
-        </div>
-        <div className='alt-div'>
-          <p className='alt-text'>Genre: </p>
-          <p id='genre' className='alt-text'>{ selectedGameInfo.genre }</p>
+        <div className='extra-info'>
+          <div className='alt-div'>
+            <p className='alt-text'>Average Length: </p>
+            <p id='average-length' className='alt-text'>{ selectedGameInfo.length }</p>
+          </div>
+          <div className='alt-div'>
+            <p className='alt-text'>Rating: </p>
+            <p id='rating' className='alt-text'>{ selectedGameInfo.rating }</p>
+          </div>
+          <div className='alt-div'>
+            <p className='alt-text'>Publisher: </p>
+            <p id='playtime' className='alt-text'>{ selectedGameInfo.publisher }</p>
+          </div>
+          <div className='alt-div'>
+            <p className='alt-text'>Genre: </p>
+            <p id='genre' className='alt-text'>{ selectedGameInfo.genre }</p>
+          </div>
         </div>
       </div>
     </div>
