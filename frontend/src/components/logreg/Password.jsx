@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
 import {createRoot } from 'react-dom/client'; // Import ReactDOM
+import {useParams} from 'react-router-dom';
 import './Login.css';
 import PasswordForm from './PasswordForm.jsx';
 
 function Password() {
+
+  const { token } = useParams();
+
   useEffect(() => {
     const handleResize = () => {
       const canvas = document.getElementById('backgroundCanvas');
@@ -199,7 +203,7 @@ function Password() {
   return (
     <div style={bodyStyles}>
       <div id="markerDiv">
-        <PasswordForm />
+        <PasswordForm token={token} />
       </div>
       <canvas id="backgroundCanvas" style={canvasStyles}></canvas>
       <div style={loginDivStyles}>

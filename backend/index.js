@@ -7,12 +7,16 @@ import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import cors from 'cors';
 import session from 'express-session';
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
+import sgMail from '@sendgrid/mail';
+import jwt from 'jsonwebtoken'
 
 
 const app = express();
 const port = process.env.PORT || 3000; // Use the PORT environment variable if set, or default to 3000
 const connectionString = 'mongodb://emucloud:%40Letmein@3.81.208.209:27017';
+const secretKey = 'Dog-Doggy-Doggy-Dog-Dog';
+sgMail.setApiKey('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');
 
 app.use(cors());
 
@@ -54,8 +58,6 @@ passport.use(new LocalStrategy(
     try {
       console.log("Attempted");
       console.log(password);
-      const hashedPassword = await bcrypt.hash(password, 10);
-      console.log(hashedPassword);
       const user = await User.findOne({username});
 
       if (!user) {
@@ -66,7 +68,7 @@ passport.use(new LocalStrategy(
 
       if(!passwordMatch)
       {
-        const passwordMatch = await bcrypt.compare(password, user.password);
+        return done(null, false, { message: 'Incorrect username or password' });
       }
 
       return done(null, user);
@@ -116,6 +118,11 @@ app.post('/api/Register', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    const existingUsername = await User.findOne({username});
+    const existingEmail = await User.findOne({email});
+
+    console.log(existingUsername);
+    console.log(existingEmail);
     // Create a new user instance
     const newUser = new User({
       username,
@@ -126,12 +133,66 @@ app.post('/api/Register', async (req, res) => {
       saves : [[],[],[],[],[]]
     });
 
+    console.log("Checking if exist")
+
+
+    if(existingUsername || existingEmail)
+    {
+      console.log(existingEmail);
+      console.log("This user already exist")
+      return(res.json({success:false , existingEmail}));
+    }
+
+    console.log("Checking if info valid")
+    if(username == "" || password == "" || email == "")
+    {
+      console.log("This user has no username or password")
+      return(res.json({success:false , user : newUser}));
+    }
+
     // Save the new user to the database
     await newUser.save();
 
     // Respond with the newly created user
     res.json({success:true , user : newUser});
     console.log(hashedPassword)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.post('/api/Reset', async (req, res) => {
+  try {
+    const newPassword = req.body.password;
+    const token = req.body.token;
+    const decodedToken = token.replace(/_/g, '.');
+    let userEmail;
+
+    let existing; 
+
+    console.log("Okay were workingish");
+
+    await jwt.verify(decodedToken, secretKey, (err, decoded) => {
+      if (err) {
+          console.error('Token verification failed:', err.message);
+          return res.json({success:false});
+      } else {
+          userEmail = decoded.email;
+          console.log("Entered here");
+          console.log(existing);
+          
+      }
+    });
+
+  existing = await User.findOne({email : userEmail}); 
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  existing.password = hashedPassword;
+
+  await existing.save()
+
+  res.json({success : true});
+    // Respond with the newly created user
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -152,6 +213,67 @@ app.get('/api/gameinfo', async (req, res) => {
       res.status(404).json({ error: 'Game not found' });
     }
   } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.post('/api/ForgotLink', async (req, res) => {
+  try {
+
+    const email = req.body.email;
+    const token = jwt.sign({email:email},secretKey, {expiresIn : '1h' });
+    const encodedToken = encodeURIComponent(token);
+    const safeencodedToken = encodedToken.replace(/\./g, '_');
+
+    const testEmail = 'This is my email follow this url http://localhost:3001/Password/' + safeencodedToken;
+
+    const msg = {
+      to : email,
+      from : 'aa054064@ucf.edu',
+      subject : 'Reset Password',
+      text : testEmail
+    }
+
+   await sgMail
+      .send(msg)
+      .then(() => {
+        console.log('Email Sent')
+      })
+      .catch((error) => {
+        return res.json({success : false})
+      })
+    
+    // Respond with the newly created user
+    res.json({success:true});
+    console.log('Email has been sent');
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.post('/api/verifyToken', async (req, res) => {
+  try {
+
+    const token = req.body.token;
+    const decodedToken = token.replace(/_/g, '.');
+    let userEmail;
+
+    await jwt.verify(decodedToken, secretKey, (err, decoded) => {
+      if (err) {
+          console.error('Token verification failed:', err.message);
+          res.json({success:false});
+      } else {
+  
+          userEmail = decoded.email;
+
+          console.log('Email:', userEmail);
+          res.json({success:true});
+      }
+    });
+    // Respond with the newly created user
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
