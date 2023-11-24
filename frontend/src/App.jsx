@@ -9,11 +9,13 @@ import Register from './components/logreg/Register.jsx';
 import Forgot from './components/logreg/Forgot.jsx';
 import Password from './components/logreg/Password.jsx';
 import GameList from './components/GameLibrary/GameList.jsx';
+import Emulator from './components/Emulator/Emulator.jsx'
 
 function App() {
   return (
         <Routes basename = '/'>
             <Route exact path="/" element={<Home />} />
+            <Route path="/Emulator" element={<Emulator />} />
             <Route path="/GameList" element={<GameList />} />
             <Route path="/SideNav" element={<SideNav />} />
             <Route path="/Login" element={<Login />} />

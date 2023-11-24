@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Description from './Description';
 import './GameList.css'
 
@@ -85,13 +86,14 @@ function selectNavItem(event) {
 
 function GameList() {
   const [selectedGame, setSelectedGame] = useState('mario');
+  const navigate = useNavigate();
 
   const [gameCards, setGameCards] = useState([
-    { id: 'metroid', hasFile: false },
-    { id: 'pokemon', hasFile: true },
-    { id: 'mario', hasFile: false },
-    { id: 'mariok', hasFile: true },
-    { id: 'zelda', hasFile: false }
+    { id: 'metroid', hasFile: false, romFile: useRef(null) },
+    { id: 'pokemon', hasFile: false, romFile: useRef(null) },
+    { id: 'mario', hasFile: false, romFile: useRef(null) },
+    { id: 'mariok', hasFile: false, romFile: useRef(null) },
+    { id: 'zelda', hasFile: false, romFile: useRef(null) }
   ]);
 
   const handleDivClick = (gameName) => {
@@ -114,83 +116,90 @@ function GameList() {
     plays.forEach(card => {
       card.style.display = 'none';
     });
-    const hoveredCard = event.currentTarget;
-    if(gameCards.find((game) => game.id === hoveredCard.id).hasFile === false){
-      hoveredCard.querySelector('.upload').style.display = 'block';
-      hoveredCard.querySelector('.play').style.display = 'none';
-    } else{
-      hoveredCard.querySelector('.upload').style.display = 'none';
-      hoveredCard.querySelector('.play').style.display = 'block';
+    if(event.currentTarget === undefined){
+      if(gameCards.find((game) => game.id === event.id).hasFile === false){
+        event.querySelector('.upload').style.display = 'block';
+        event.querySelector('.play').style.display = 'none';
+      } else{
+        event.querySelector('.upload').style.display = 'none';
+        event.querySelector('.play').style.display = 'block';
+      }
+    }else{
+      const hoveredCard = event.currentTarget;
+      if(gameCards.find((game) => game.id === hoveredCard.id).hasFile === false){
+        hoveredCard.querySelector('.upload').style.display = 'block';
+        hoveredCard.querySelector('.play').style.display = 'none';
+      } else{
+        hoveredCard.querySelector('.upload').style.display = 'none';
+        hoveredCard.querySelector('.play').style.display = 'block';
+      }
     }
   };
 
-  function handleOnClickUpload(event) {
-
+  const handleOnClickUpload = (index) => {
+    gameCards[index].romFile.current.click();
   };
 
-  function handleOnClickPlay(event) {
+  const handleOnClickPlay = (index) => {
+    console.log('Clicked on play for index:', index);
+    const selectedFile = gameCards[index].romFile.current.files[0];
+    console.log(selectedFile);
+    if (selectedFile) {
+      // Redirect to the /emulator route with the selected file as a parameter
+      navigate('/emulator', { state: { emulatorFile: selectedFile } });
+    } else {
+      // If the input file is in the "upload" div, find it and get the file
+      const uploadDiv = document.getElementById(gameCards[index].id);
+      const uploadInput = uploadDiv.querySelector('.upload input[type="file"]');
+      const fileFromUpload = uploadInput.files[0];
 
+      if (fileFromUpload) {
+        // Redirect to the /emulator route with the selected file as a parameter
+        navigate('/emulator', { state: { selectedFile: fileFromUpload } });
+      } else {
+        console.log('No file selected');
+      }
+    }
+  };
+  
+  const handleFileChange = (index, event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      console.log('Selected File for', gameCards[index].id, ':', selectedFile.name);
+      const updatedGameCards = [...gameCards];
+      updatedGameCards[index].romFile.current = event.target; // Change this line to set the ref to the input element
+      updatedGameCards[index].hasFile = true;
+      const uploadDiv = event.target.parentNode;
+      const cardElement = uploadDiv.parentNode;
+      handleUploadPlay(cardElement);
+      setGameCards(updatedGameCards);
+    } else {
+      console.log('No file selected');
+      const updatedGameCards = [...gameCards];
+      updatedGameCards[index].hasFile = false;
+      setGameCards(updatedGameCards);
+    }
   };
 
   return (
     <div className='library-wrapper-div'>
       <p className='library-title'>Game Library</p>
       <div className='card-list' >
-        <div id='metroid' className='card-img' onMouseOver={ handleMouseOver } onClick={ handleMouseOver }>
-          <img className='game-img' src='/src/assets/metroid.jpg'/>
-          <div className='upload' onClick={ handleOnClickUpload }>
+      {gameCards.map((game, index) => (
+        <div key={game.id} id={game.id} className='card-img' onMouseOver={ handleMouseOver } onClick={ handleMouseOver }>
+          <img className='game-img' src={`/src/assets/${game.id}.jpg`}/>
+          <div className='upload' onClick={() => handleOnClickUpload(index)}>
             <p className='upload-text'>upload your rom here</p>
             <img className='upload-svg' src='/src/assets/upload.svg'/>
+            <input type="file" ref={game.romFile} style={{ display: 'none' }} onChange={(event) => handleFileChange(index, event)} accept=".gba"/>
           </div>
-          <div className='play' onClick={ handleOnClickPlay }>
+          <div className='play' onClick={() => handleOnClickPlay(index)}>
             <p className='play-text'>play game</p>
+            <input type='file' id='file' style={{display: 'none'}}/>
             <img className='play-svg' src='/src/assets/play.svg'/>
           </div>
         </div>
-        <div id='pokemon' className='card-img' onMouseOver={ handleMouseOver } onClick={ handleMouseOver }>
-          <img className='game-img' src='/src/assets/pokemon.jpg'/>
-          <div className='upload' onClick={ handleOnClickUpload }>
-            <p className='upload-text'>upload your rom here</p>
-            <img className='upload-svg' src='/src/assets/upload.svg'/>
-          </div>
-          <div className='play' onClick={ handleOnClickPlay }>
-            <p className='play-text'>play game</p>
-            <img className='play-svg' src='/src/assets/play.svg'/>
-          </div>
-        </div>
-        <div id='mario' className='card-img' onMouseOver={ handleMouseOver } onClick={ handleMouseOver }>
-          <img className='game-img' src='/src/assets/mario.jpg'/>
-          <div className='upload' onClick={ handleOnClickUpload }>
-            <p className='upload-text'>upload your rom here</p>
-            <img className='upload-svg' src='/src/assets/upload.svg'/>
-          </div>
-          <div className='play' onClick={ handleOnClickPlay }>
-            <p className='play-text'>play game</p>
-            <img className='play-svg' src='/src/assets/play.svg'/>
-          </div>
-        </div>
-        <div id='mariok' className='card-img' onMouseOver={ handleMouseOver } onClick={ handleMouseOver }>
-          <img className='game-img' src='/src/assets/mariokart.png'/>
-          <div className='upload' onClick={ handleOnClickUpload }>
-            <p className='upload-text'>upload your rom here</p>
-            <img className='upload-svg' src='/src/assets/upload.svg'/>
-          </div>
-          <div className='play' onClick={ handleOnClickPlay }>
-            <p className='play-text'>play game</p>
-            <img className='play-svg' src='/src/assets/play.svg'/>
-          </div>
-        </div>
-        <div id='zelda' className='card-img' onMouseOver={ handleMouseOver } onClick={ handleMouseOver }>
-          <img className='game-img' src='/src/assets/zelda.jpg'/>
-          <div className='upload' onClick={ handleOnClickUpload }>
-            <p className='upload-text'>upload your rom here</p>
-            <img className='upload-svg' src='/src/assets/upload.svg'/>
-          </div>
-          <div className='play' onClick={ handleOnClickPlay }>
-            <p className='play-text'>play game</p>
-            <img className='play-svg' src='/src/assets/play.svg'/>
-          </div>
-        </div>
+      ))}
       </div>
       <hr className='line'/>
       <Description selectedGame={ selectedGame }/>
