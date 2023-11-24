@@ -33,6 +33,9 @@ function RegisterForm() {
           console.log("Account Created")
           navigate ('/Login');
         }
+        else if(data.success == false){
+          console.log("Invalid Account Creation")
+        }
         else
         {
           console.log("Failed to Register")
