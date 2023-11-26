@@ -30,7 +30,7 @@ function Description({ selectedGame }) {
   }, [selectedGame]);
   
   return (
-    <div>
+    <div style={{marginTop: '-20px', marginLeft: '100px'}}>
       <p className='game-title'>{ selectedGameInfo.name }</p>
       <div className='text-flexbox'>
         <div className='description-container'>

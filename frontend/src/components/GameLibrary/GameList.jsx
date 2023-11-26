@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useFile} from '../FileContext/FileContext';
 import Description from './Description';
 import './GameList.css'
+import SideNav from '../SideNav/SideNav';
 
 function calculateScale(distance) {
   // You can adjust these values based on your preference
@@ -84,8 +86,9 @@ function selectNavItem(event) {
   event.currentTarget.classList.add('selected');
 }
 
-function GameList() {
+const GameList = () => {
   const [selectedGame, setSelectedGame] = useState('mario');
+  const { setFile } = useFile();
   const navigate = useNavigate();
 
   const [gameCards, setGameCards] = useState([
@@ -143,31 +146,27 @@ function GameList() {
   const handleOnClickPlay = (index) => {
     console.log('Clicked on play for index:', index);
     const selectedFile = gameCards[index].romFile.current.files[0];
-    console.log(selectedFile);
+  
     if (selectedFile) {
-      // Redirect to the /emulator route with the selected file as a parameter
-      navigate('/emulator', { state: { emulatorFile: selectedFile } });
-    } else {
-      // If the input file is in the "upload" div, find it and get the file
-      const uploadDiv = document.getElementById(gameCards[index].id);
-      const uploadInput = uploadDiv.querySelector('.upload input[type="file"]');
-      const fileFromUpload = uploadInput.files[0];
+      console.log('Before setFile:', selectedFile);
+      setFile(selectedFile);
+      console.log('After setFile:', selectedFile);
 
-      if (fileFromUpload) {
-        // Redirect to the /emulator route with the selected file as a parameter
-        navigate('/emulator', { state: { selectedFile: fileFromUpload } });
-      } else {
-        console.log('No file selected');
-      }
+      navigate('/Emulator');
+    } else {
+      console.log('No file selected');
     }
   };
   
-  const handleFileChange = (index, event) => {
+  
+  const handleFileChange = (gameId, event) => {
     const selectedFile = event.target.files[0];
+    const updatedGameCards = [...gameCards];
+    const index = updatedGameCards.findIndex((game) => game.id === gameId);
+  
     if (selectedFile) {
-      console.log('Selected File for', gameCards[index].id, ':', selectedFile.name);
-      const updatedGameCards = [...gameCards];
-      updatedGameCards[index].romFile.current = event.target; // Change this line to set the ref to the input element
+      console.log('Selected File for', gameId, ':', selectedFile.name);
+      updatedGameCards[index].romFile.current = event.target;
       updatedGameCards[index].hasFile = true;
       const uploadDiv = event.target.parentNode;
       const cardElement = uploadDiv.parentNode;
@@ -175,34 +174,36 @@ function GameList() {
       setGameCards(updatedGameCards);
     } else {
       console.log('No file selected');
-      const updatedGameCards = [...gameCards];
       updatedGameCards[index].hasFile = false;
       setGameCards(updatedGameCards);
     }
   };
 
   return (
-    <div className='library-wrapper-div'>
-      <p className='library-title'>Game Library</p>
-      <div className='card-list' >
-      {gameCards.map((game, index) => (
-        <div key={game.id} id={game.id} className='card-img' onMouseOver={ handleMouseOver } onClick={ handleMouseOver }>
-          <img className='game-img' src={`/src/assets/${game.id}.jpg`}/>
-          <div className='upload' onClick={() => handleOnClickUpload(index)}>
-            <p className='upload-text'>upload your rom here</p>
-            <img className='upload-svg' src='/src/assets/upload.svg'/>
-            <input type="file" ref={game.romFile} style={{ display: 'none' }} onChange={(event) => handleFileChange(index, event)} accept=".gba"/>
+    <div>
+      <SideNav id="list" />
+      <div className='library-wrapper-div'>
+        <p className='library-title'>Game Library</p>
+        <div className='card-list' >
+        {gameCards.map((game, index) => (
+          <div key={game.id} id={game.id} className='card-img' onMouseOver={ handleMouseOver } onClick={ handleMouseOver }>
+            <img className='game-img' src={`/src/assets/${game.id}.jpg`}/>
+            <div className='upload' onClick={() => handleOnClickUpload(index)}>
+              <p className='upload-text'>upload your rom here</p>
+              <img className='upload-svg' src='/src/assets/upload.svg'/>
+              <input type="file" ref={game.romFile} style={{ display: 'none' }} onChange={(event) => handleFileChange(game.id, event)} accept=".gba"/>
+            </div>
+            <div className='play' onClick={() => handleOnClickPlay(index)}>
+              <p className='play-text'>play game</p>
+              <input type='file' style={{display: 'none'}}/>
+              <img className='play-svg' src='/src/assets/play.svg'/>
+            </div>
           </div>
-          <div className='play' onClick={() => handleOnClickPlay(index)}>
-            <p className='play-text'>play game</p>
-            <input type='file' id='file' style={{display: 'none'}}/>
-            <img className='play-svg' src='/src/assets/play.svg'/>
-          </div>
+        ))}
         </div>
-      ))}
+        <hr className='line'/>
+        <Description selectedGame={ selectedGame }/>
       </div>
-      <hr className='line'/>
-      <Description selectedGame={ selectedGame }/>
     </div>
   );
 }

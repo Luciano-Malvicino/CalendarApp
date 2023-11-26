@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html class="emulator-html">
+<head>
+    <title>EmulatorJS</title>
+
+    <link rel="icon" href="docs/favicon.ico" sizes="16x16 32x32 48x48 64x64" type="image/vnd.microsoft.icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        .emulator-body, .emulator-html {
+            height: 100%;
+        }
+
+        .emulator-body {
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 20px;
+            margin: 0;
+            overflow: hidden;
+            background-color: #222;
+        }
+
+        .emulator-body, #box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #box {
+            color: #aaa;
+            height: 20em;
+            width: 30em;
+            max-width: 80%;
+            max-height: 80%;
+            background-color: #333;
+            border-radius: 0.4em;
+            border: 2px solid #555;
+            position: relative;
+            flex-direction: column;
+            transition-duration: 0.2s;
+            overflow: hidden;
+        }
+
+        #box:hover, #box[drag] {
+            border-color: #38f;
+            color: #ddd;
+        }
+
+        #display {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body class="emulator-body">
+    <div id="box">
+        <div id="display"></div>
+    </div>
+
+    <script>
+        function initializeEmulator() {
+            const div = document.createElement("div");
+            const sub = document.createElement("div");
+            const script = document.createElement("script");
+            const urlParams = new URLSearchParams(window.location.search);
+            const romFile = urlParams.get('romFile');
+
+            sub.id = "game";
+            div.id = "display";
+
+            box.remove();
+            div.appendChild(sub);
+            document.body.appendChild(div);
+
+            window.EJS_player = "#game";
+            window.EJS_gameName = "YourGameName"; // Set your game name
+            window.EJS_biosUrl = "gba_bios.bin";
+            window.EJS_gameUrl = romFile; // Set your game file
+            window.EJS_core = 'gba';
+            window.EJS_pathtodata = "data/";
+            window.EJS_startOnLoaded = true;
+
+            script.src = "data/loader.js";
+            document.body.appendChild(script);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Delay initialization by 100 milliseconds
+            setTimeout(initializeEmulator, 100);
+        });
+    </script>
+</body>
+</html>

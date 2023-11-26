@@ -1,35 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useFile} from '../FileContext/FileContext';
+import './Emulator.css';
 
-function Emulator({ emulatorFile }) {
-  console.log('Emulator received emulatorFile:', emulatorFile);
+const Emulator = () => {
+  const { file } = useFile();
 
-  const iframeSrcDoc = `
-    <html>
-        <script>
-            EJS_player = "#game";
-            EJS_core = "gba";
-            EJS_gameName = "Pokemon Emerald";
-            EJS_color = "#0064ff";
-            EJS_pathtodata = "https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/";
-            EJS_gameUrl = "Pokemon_Emerald.gba";
-            EJS_biosUrl = "gba_bios.bin";
-        </script>
-        <!-- ... other content ... -->
-    </html>
-  `;
+  const iframeSrc = `/src/components/Emulator/index.html?romFile=${encodeURIComponent(file.name)}`;
 
   return (
-    <div>
-      <iframe
-        srcDoc={iframeSrcDoc}
-        title="Emulator"
-        width="640"
-        height="480"
-        style={{ maxWidth: '100%' }}
-      />
+    <div className='emulator-wrapper'>
+      <iframe className='emulator-frame' title="Emulator" src={iframeSrc} />
     </div>
   );
+  
 }
 
 export default Emulator;
-

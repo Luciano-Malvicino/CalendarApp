@@ -1,0 +1,56 @@
+.save-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.save-table {
+  width: 500px;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 1px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.save-title {
+  text-align: center;
+  font-size: 32px;
+}
+
+.div-wrapper-save {
+  margin-left: 73px;
+}
+
+.table-title {
+  font-size: 15px;
+  margin-left: 5px;
+}
+
+.save-icon {
+  width: 23px;
+  filter: invert(100%) sepia(4%) saturate(0%) hue-rotate(267deg) brightness(105%) contrast(109%);
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.table-content {
+  font-size: 13px;
+  margin-left: 5px;
+}
+
+.save-a {
+  display: flex;
+  flex-direction: row;
+  color: inherit;
+  text-decoration: none;
+}
+
+.save-a:hover {
+  background-color: #B1BBD4;
+  transition: 0.3s;
+}
+
+.save-line {
+  color: white;
+}
