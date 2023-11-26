@@ -9,7 +9,8 @@ import cors from 'cors';
 import session from 'express-session';
 import bcrypt from 'bcrypt';
 import sgMail from '@sendgrid/mail';
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
+import AWS from 'aws-sdk';
 
 
 const app = express();
@@ -17,6 +18,7 @@ const port = process.env.PORT || 3000; // Use the PORT environment variable if s
 const connectionString = 'mongodb://emucloud:%40Letmein@3.81.208.209:27017';
 const secretKey = 'Dog-Doggy-Doggy-Dog-Dog';
 sgMail.setApiKey('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');
+const bucketName = 'savesbucker'
 
 app.use(cors());
 
@@ -24,6 +26,11 @@ app.use(cors({
   origin: '*',
 }));
 
+AWS.config.update({
+  accessKeyId : 'AKIAYLVON4SUIUQJSU6D',
+  secretAccessKey : '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',
+  region : 'us-east-1',
+});
 
 
 // Oauth Authentication //
@@ -50,6 +57,23 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+const s3 = new AWS.S3();
+
+app.get('/api/listFiles', async (req, res) => {
+  try {
+    const params = {
+      Bucket: 'savesbucker',
+    };
+
+    const result = await s3.listObjectsV2(params).promise();
+    const files = result.Contents.map((file) => file.Key);
+
+    res.json({ success: true, files });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 // Database Setup //
 
@@ -149,6 +173,12 @@ app.post('/api/Register', async (req, res) => {
       console.log("This user has no username or password")
       return(res.json({success:false , user : newUser}));
     }
+    createFolder(bucketName, username + '/mariobro');
+    createFolder(bucketName, username + '/pokemon');
+    createFolder(bucketName, username + '/metroid');
+    createFolder(bucketName, username + '/mariokart');
+    createFolder(bucketName, username + '/zelda');
+
 
     // Save the new user to the database
     await newUser.save();
@@ -161,6 +191,18 @@ app.post('/api/Register', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+async function createFolder(bucketName, folderPath) {
+    const params = {
+      Bucket: bucketName,
+      Key: folderPath,
+      Body: '', // Body can be empty for a folder
+    };
+
+    await s3.upload(params).promise();
+
+    console.log(`Folder "${folderPath}" created successfully in bucket "${bucketName}"`);
+}
 
 app.post('/api/Reset', async (req, res) => {
   try {
@@ -271,6 +313,16 @@ app.post('/api/verifyToken', async (req, res) => {
           res.json({success:true});
       }
     });
+    // Respond with the newly created user
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.post('/api/getAllFiles', async (req, res) => {
+  try {
+    res.json({success : true});
     // Respond with the newly created user
   } catch (error) {
     console.error(error);

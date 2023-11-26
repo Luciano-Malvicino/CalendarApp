@@ -1,0 +1,29 @@
+.usersave-title {
+    text-align: center;
+}
+
+.parent-all {
+    width: 100%;
+}
+
+.parent-all table {
+    width: 100%;
+    max-width: 25%; /* Set your desired maximum width */
+    border: 1px solid;
+}
+
+.parent-all th {
+    border: 1px solid;
+}
+
+.parent-all td {
+    border: 1px solid;
+}
+
+.parent-all .name { 
+    width: 80%;
+}
+
+.parent-all .options {
+    width: 20%;
+}
