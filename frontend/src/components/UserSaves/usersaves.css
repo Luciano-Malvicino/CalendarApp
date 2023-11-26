@@ -6,11 +6,13 @@
 
 .user-save-table {
   width: 500px;
+  height: 350px;
   border-style: solid;
   border-radius: 10px;
   border-width: 1px;
   margin: 5px;
   padding: 5px;
+  overflow: scroll;
 }
 
 .user-save-title {
@@ -18,8 +20,10 @@
   font-size: 32px;
 }
 
+
 .user-save-wrapper {
   margin-left: 73px;
+  overflow: scroll;
 }
 
 .user-table-title {
@@ -50,6 +54,25 @@
 
 .user-save-line {
   color: white;
+}
+
+.add-svg {
+  cursor: pointer;
+  width: 30px;
+  margin-left: auto;
+  filter: invert(100%) sepia(4%) saturate(0%) hue-rotate(267deg) brightness(105%) contrast(109%);
+  margin-right: 7px;
+}
+
+.title-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (max-width: 1650px){
+  body {
+    overflow: scroll;
+  }
 }
 
 @media screen and (max-width: 810px) {
