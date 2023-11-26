@@ -1,29 +1,75 @@
-.usersave-title {
-    text-align: center;
+.user-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.parent-all {
-    width: 100%;
+.user-save-table {
+  width: 500px;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 1px;
+  margin: 5px;
+  padding: 5px;
 }
 
-.parent-all table {
-    width: 100%;
-    max-width: 25%; /* Set your desired maximum width */
-    border: 1px solid;
+.user-save-title {
+  text-align: center;
+  font-size: 32px;
 }
 
-.parent-all th {
-    border: 1px solid;
+.user-save-wrapper {
+  margin-left: 73px;
 }
 
-.parent-all td {
-    border: 1px solid;
+.user-table-title {
+  font-size: 15px;
+  margin-left: 5px;
 }
 
-.parent-all .name { 
-    width: 80%;
+.context-menu-div {
+  margin-left: auto;
 }
 
-.parent-all .options {
-    width: 20%;
+.save-table-content {
+  font-size: 13px;
+  margin-left: 5px;
+}
+
+.user-save-a {
+  display: flex;
+  flex-direction: row;
+  color: inherit;
+  text-decoration: none;
+}
+
+.user-save-a:hover {
+  background-color: #B1BBD4;
+  transition: 0.3s;
+}
+
+.user-save-line {
+  color: white;
+}
+
+@media screen and (max-width: 810px) {
+  .user-save-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .div-wrapper-save {
+    margin-left: 0px;
+    overflow: hidden;
+  }
+
+  .save-table {
+    width: auto;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 1px;
+    margin: 5px;
+    padding: 5px;
+  }
 }
