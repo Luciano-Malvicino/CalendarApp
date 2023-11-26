@@ -1,10 +1,10 @@
-.save-wrapper {
+.user-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.save-table {
+.user-save-table {
   width: 500px;
   border-style: solid;
   border-radius: 10px;
@@ -13,50 +13,47 @@
   padding: 5px;
 }
 
-.save-title {
+.user-save-title {
   text-align: center;
   font-size: 32px;
 }
 
-.div-wrapper-save {
+.user-save-wrapper {
   margin-left: 73px;
 }
 
-.table-title {
+.user-table-title {
   font-size: 15px;
   margin-left: 5px;
 }
 
-.save-icon {
-  width: 23px;
-  filter: invert(100%) sepia(4%) saturate(0%) hue-rotate(267deg) brightness(105%) contrast(109%);
+.context-menu-div {
   margin-left: auto;
-  margin-right: 20px;
 }
 
-.table-content {
+.save-table-content {
   font-size: 13px;
   margin-left: 5px;
 }
 
-.save-a {
+.user-save-a {
   display: flex;
   flex-direction: row;
   color: inherit;
   text-decoration: none;
 }
 
-.save-a:hover {
+.user-save-a:hover {
   background-color: #B1BBD4;
   transition: 0.3s;
 }
 
-.save-line {
+.user-save-line {
   color: white;
 }
 
 @media screen and (max-width: 810px) {
-  .save-wrapper {
+  .user-save-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
