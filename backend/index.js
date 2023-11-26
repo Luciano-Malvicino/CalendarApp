@@ -320,7 +320,7 @@ app.post('/api/verifyToken', async (req, res) => {
   }
 });
 
-app.post('/api/getAllFiles', async (req, res) => {
+app.post('/api/getAllFiles', passport.authenticate('local'), async (req, res) => {
   try {
     res.json({success : true});
     // Respond with the newly created user
