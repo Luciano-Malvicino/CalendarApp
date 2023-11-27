@@ -20,10 +20,10 @@ const secretKey = 'Dog-Doggy-Doggy-Dog-Dog';
 sgMail.setApiKey('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');
 const bucketName = 'savesbucker'
 
-app.use(cors());
-
-app.use(cors({
-  origin: '*',
+app.use(session({
+  secret: secretKey, // Replace with a strong, secret key
+  resave: false,
+  saveUninitialized: false,
 }));
 
 AWS.config.update({
@@ -41,41 +41,7 @@ app.use(passport.initialize());
 
 app.use(passport.session());
 
-app.use(bodyParser.json());
-
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await User.findById(id);
-    done(null, user);
-  } catch (error) {
-    done(error);
-  }
-});
-
-const s3 = new AWS.S3();
-
-app.get('/api/listFiles', async (req, res) => {
-  try {
-    const params = {
-      Bucket: 'savesbucker',
-    };
-
-    const result = await s3.listObjectsV2(params).promise();
-    const files = result.Contents.map((file) => file.Key);
-
-    res.json({ success: true, files });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-// Database Setup //
+app.use(cors());
 
 passport.use(new LocalStrategy(
   async function(username, password, done) {
@@ -102,6 +68,44 @@ passport.use(new LocalStrategy(
     }
   }
 ));
+
+app.use(bodyParser.json());
+
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (error) {
+    done(error);
+  }
+});
+
+const s3 = new AWS.S3();
+
+app.get('/api/listFiles', async (req, res) => {
+  const { selectedPath } = req.query;
+  try {
+    const params = {
+      Bucket: 'savesbucker',
+      Prefix: selectedPath,
+    };
+  
+    const result = await s3.listObjectsV2(params).promise();
+    const files = result.Contents.map((file) => file.Key);
+  
+    res.json({ success: true, files });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Database Setup //
 
 mongoose.connect(connectionString, {dbName : 'emucloud'});
 app.use(bodyParser.json());
@@ -241,7 +245,7 @@ app.post('/api/Reset', async (req, res) => {
   }
 });
 
-app.post('/api/login', passport.authenticate('local'), (req,res) => {
+app.post('/api/login', cors(), passport.authenticate('local'), (req,res) => {
   res.json({ success: true, user: req.user });
 });
 
@@ -320,15 +324,23 @@ app.post('/api/verifyToken', async (req, res) => {
   }
 });
 
-app.post('/api/getAllFiles', passport.authenticate('local'), async (req, res) => {
+app.post('/api/getAllFiles', cors(), (req, res) => {
   try {
-    res.json({success : true});
-    // Respond with the newly created user
+    // Check if the user is authenticated
+    if (req.isAuthenticated()) {
+      // Your logic for an authenticated user
+      console.log(req.user); // Access the authenticated user information
+      res.json({ success: true });
+    } else {
+      // Your logic for an unauthenticated user
+      res.status(401).json({ error: 'Unauthorized' });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // Start the server
 app.listen(port, () => {

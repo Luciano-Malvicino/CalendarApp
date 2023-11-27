@@ -13,6 +13,7 @@ import GameList from './components/GameLibrary/GameList.jsx';
 import Emulator from './components/Emulator/Emulator.jsx';
 import SaveList from './components/SaveList/SaveList';
 import UserSaves from './components/UserSaves/UserSaves'
+import Testt from './components/Testt';
 
 
 //<GameList />
@@ -22,7 +23,7 @@ function App() {
     <FileProvider>
       <Routes basename="/">
         <Route path="/" element={<Home />} />
-
+        <Route path="/Test" element={<Testt />} />
         <Route path="/UserSaves" element={<UserSaves />} />
         <Route path="/SaveList" element={<SaveList />} />
         <Route path="/Emulator" element={<Emulator />} />

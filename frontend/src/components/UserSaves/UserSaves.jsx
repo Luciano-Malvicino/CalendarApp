@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import SideNav from '../SideNav/SideNav';
 import ContextMenu from '../ContextMenu/ContextMenu';
 import './UserSaves.css'
@@ -9,6 +9,72 @@ function addSave(event) {
 }
 
 function UserSaves() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const username = 'UserTemplate';
+        
+        const metroidResponse = await fetch(`http://localhost:3000/api/listFiles?selectedPath=${username}/metroid/`);
+        const metroidjsonData = await metroidResponse.json();
+        const metroidArray = metroidjsonData.files;
+        metroidArray.shift();
+        const pokemonResponse = await fetch(`http://localhost:3000/api/listFiles?selectedPath=${username}/pokemon/`);
+        const pokemonjsonData = await pokemonResponse.json();
+        const pokemonArray = pokemonjsonData.files;
+        pokemonArray.shift();
+        const marioResponse = await fetch(`http://localhost:3000/api/listFiles?selectedPath=${username}/mario/`);
+        const mariojsonData = await marioResponse.json();
+        const marioArray = mariojsonData.files;
+        marioArray.shift();
+        const mariokResponse = await fetch(`http://localhost:3000/api/listFiles?selectedPath=${username}/mariok/`);
+        const marikjsonData = await mariokResponse.json();
+        const mariokArray = marikjsonData.files;
+        mariokArray.shift();
+        const zeldaResponse = await fetch(`http://localhost:3000/api/listFiles?selectedPath=${username}/zelda/`);
+        const zeldajsonData = await zeldaResponse.json();
+        const zeldaArray = zeldajsonData.files;
+        zeldaArray.shift();
+
+        console.log(metroidArray);
+        console.log(pokemonArray);
+        console.log(marioArray);
+        console.log(mariokArray);
+        console.log(zeldaArray);
+
+        setData({
+          metroid: metroidArray,
+          pokemon: pokemonArray,
+          mario: marioArray,
+          mariok: mariokArray,
+          zelda: zeldaArray,
+        });
+
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const renderSaveItems = (category) => {
+    if (!data[category]) {
+      return null;
+    }
+
+    return data[category].map((fileName, index) => (
+      <a key={index} className='user-save-a'>
+        <p className='save-table-content'>{fileName}</p>
+        <div className='context-menu-div'>
+          <ContextMenu />
+        </div>
+      </a>
+    ));
+  };
+  
 
   return (
     <div>
@@ -22,7 +88,7 @@ function UserSaves() {
               <img className='add-svg' src='/src/assets/plus.svg' onClick={ addSave }/>
             </div>
             <hr className='user-save-line'/>
-            {/* this is where you shove the files */}
+            {renderSaveItems('metroid')}
           </div>
           <div id='pokemon' className='user-save-table'>
             <div className='title-wrapper'>
@@ -30,7 +96,7 @@ function UserSaves() {
               <img className='add-svg' src='/src/assets/plus.svg'/>
             </div>
             <hr className='user-save-line'/>
-            {/* this is where you shove the files */}
+            {renderSaveItems('pokemon')}
           </div>
           <div id='mario' className='user-save-table'>
             <div className='title-wrapper'>
@@ -38,7 +104,7 @@ function UserSaves() {
               <img className='add-svg' src='/src/assets/plus.svg'/>
             </div>
             <hr className='user-save-line'/>
-            {/* this is where you shove the files */}
+            {renderSaveItems('mario')}
           </div>
           <div id='mariok' className='user-save-table'>
             <div className='title-wrapper'>
@@ -46,12 +112,7 @@ function UserSaves() {
               <img className='add-svg' src='/src/assets/plus.svg'/>
             </div>
             <hr className='user-save-line'/>
-            <div className='user-save-a'>
-              <p className='save-table-content'>50 + 100CC Finished</p>
-              <div className='context-menu-div'>
-                <ContextMenu />
-              </div>
-            </div>
+            {renderSaveItems('mariok')}
           </div>
           <div id='zelda' className='user-save-table'>
             <div className='title-wrapper'>
@@ -59,7 +120,7 @@ function UserSaves() {
               <img className='add-svg' src='/src/assets/plus.svg'/>
             </div>
             <hr className='user-save-line'/>
-            {/* this is where you shove the files */}
+            {renderSaveItems('zelda')}
           </div>
         </div>
       </div>

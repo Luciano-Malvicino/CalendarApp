@@ -12,7 +12,8 @@
   border-width: 1px;
   margin: 5px;
   padding: 5px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: visible;
 }
 
 .user-save-title {
@@ -23,7 +24,8 @@
 
 .user-save-wrapper {
   margin-left: 73px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: visible;
 }
 
 .user-table-title {
@@ -71,7 +73,7 @@
 
 @media screen and (max-width: 1650px){
   body {
-    overflow: scroll;
+    overflow-y: scroll;
   }
 }
 

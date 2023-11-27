@@ -30,7 +30,7 @@ function LoginForm() {
         if(data.success == true)
         {
           console.log("Logged In")
-          navigate ('/Password');
+          navigate ('/Test');
         }
         else
         {
