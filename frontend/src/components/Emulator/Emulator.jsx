@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react';
 import { useFile} from '../FileContext/FileContext';
+import SideNav from '../SideNav/SideNav';
 import './Emulator.css';
 
 const Emulator = () => {
   const { file } = useFile();
 
-  const iframeSrc = `/src/components/Emulator/index.html?romFile=${encodeURIComponent(file.name)}`;
+  const iframeSrc = `/src/components/Emulator/index.html?romFile=${encodeURIComponent('Mario-Kart.gba')}`;
 
   return (
     <div className='emulator-wrapper'>
-      <iframe className='emulator-frame' title="Emulator" src={iframeSrc} />
+      <SideNav id="list" />
+      <div className='emulator-frame-wrapper'>
+        <iframe className='emulator-frame' title="Emulator" src={iframeSrc} />
+      </div>
     </div>
   );
   

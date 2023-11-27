@@ -32,17 +32,17 @@ function SideNav({ id }) {
           </div>
           Game Library
         </Link>
-        <Link to='/SaveList' className={`nav-item ${selectedId === 'save' ? 'selected' : ''}`} onMouseDown={selectNavItem}>
+        <Link to='/UserSaves' className={`nav-item ${selectedId === 'save' ? 'selected' : ''}`} onMouseDown={selectNavItem}>
           <div>
             <img id='side-svg' className='icon' src='/src/assets/save.svg'></img>
           </div>
-          Pre-Made Saves
+          User Saves
         </Link>
-        <Link className={`nav-item ${selectedId === 'plus' ? 'selected' : ''}`} onMouseDown={selectNavItem}>
+        <Link to='/SaveList' className={`nav-item ${selectedId === 'premade' ? 'selected' : ''}`} onMouseDown={selectNavItem}>
           <div>
-            <img id='side-svg' className='icon' src='/src/assets/plus.svg'></img>
+            <img id='side-svg' className='icon' src='/src/assets/article.svg'></img>
           </div>
-          Cheat
+          Pre-Made Saves
         </Link>
         <Link className='nav-item' onMouseDown={selectNavItem}>
           <div>

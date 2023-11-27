@@ -12,8 +12,7 @@
   border-width: 1px;
   margin: 5px;
   padding: 5px;
-  overflow-y: scroll;
-  overflow-x: visible;
+  overflow-y: auto;
 }
 
 .user-save-title {
@@ -24,8 +23,7 @@
 
 .user-save-wrapper {
   margin-left: 73px;
-  overflow-y: scroll;
-  overflow-x: visible;
+  overflow-y: auto;
 }
 
 .user-table-title {

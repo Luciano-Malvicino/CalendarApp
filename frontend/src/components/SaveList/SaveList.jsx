@@ -6,7 +6,7 @@ function SaveList() {
 
   return (
     <div>
-      <SideNav id="save" />
+      <SideNav id="premade" />
       <div className='div-wrapper-save'>
         <p className='save-title'>Common Saves</p>
         <div className='save-wrapper'>

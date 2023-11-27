@@ -60,14 +60,16 @@ passport.deserializeUser(async (id, done) => {
 const s3 = new AWS.S3();
 
 app.get('/api/listFiles', async (req, res) => {
+  const { selectedPath } = req.query;
   try {
     const params = {
       Bucket: 'savesbucker',
+      Prefix: selectedPath,
     };
-
+  
     const result = await s3.listObjectsV2(params).promise();
     const files = result.Contents.map((file) => file.Key);
-
+  
     res.json({ success: true, files });
   } catch (error) {
     console.error(error);

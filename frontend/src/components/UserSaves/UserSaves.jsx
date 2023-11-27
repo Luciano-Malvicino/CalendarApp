@@ -20,35 +20,58 @@ function UserSaves() {
         const metroidjsonData = await metroidResponse.json();
         const metroidArray = metroidjsonData.files;
         metroidArray.shift();
+        const metroidArrayNames = metroidArray.map((element) => {
+          const parts = element.split('/');
+          const lastPart = parts[parts.length - 1];
+          return lastPart.split('.')[0];
+        });
+        
         const pokemonResponse = await fetch(`http://localhost:3000/api/listFiles?selectedPath=${username}/pokemon/`);
         const pokemonjsonData = await pokemonResponse.json();
         const pokemonArray = pokemonjsonData.files;
         pokemonArray.shift();
+        const pokemonArrayNames = pokemonArray.map((element) => {
+          const parts = element.split('/');
+          const lastPart = parts[parts.length - 1];
+          return lastPart.split('.')[0];
+        });
+
         const marioResponse = await fetch(`http://localhost:3000/api/listFiles?selectedPath=${username}/mario/`);
         const mariojsonData = await marioResponse.json();
         const marioArray = mariojsonData.files;
         marioArray.shift();
+        const marioArrayNames = marioArray.map((element) => {
+          const parts = element.split('/');
+          const lastPart = parts[parts.length - 1];
+          return lastPart.split('.')[0];
+        });
+
         const mariokResponse = await fetch(`http://localhost:3000/api/listFiles?selectedPath=${username}/mariok/`);
         const marikjsonData = await mariokResponse.json();
         const mariokArray = marikjsonData.files;
         mariokArray.shift();
+        const mariokArrayNames = mariokArray.map((element) => {
+          const parts = element.split('/');
+          const lastPart = parts[parts.length - 1];
+          return lastPart.split('.')[0];
+        });
+
         const zeldaResponse = await fetch(`http://localhost:3000/api/listFiles?selectedPath=${username}/zelda/`);
         const zeldajsonData = await zeldaResponse.json();
         const zeldaArray = zeldajsonData.files;
         zeldaArray.shift();
-
-        console.log(metroidArray);
-        console.log(pokemonArray);
-        console.log(marioArray);
-        console.log(mariokArray);
-        console.log(zeldaArray);
+        const zeldaArrayNames = zeldaArray.map((element) => {
+          const parts = element.split('/');
+          const lastPart = parts[parts.length - 1];
+          return lastPart.split('.')[0];
+        });
 
         setData({
-          metroid: metroidArray,
-          pokemon: pokemonArray,
-          mario: marioArray,
-          mariok: mariokArray,
-          zelda: zeldaArray,
+          metroid: metroidArrayNames,
+          pokemon: pokemonArrayNames,
+          mario: marioArrayNames,
+          mariok: mariokArrayNames,
+          zelda: zeldaArrayNames,
         });
 
 

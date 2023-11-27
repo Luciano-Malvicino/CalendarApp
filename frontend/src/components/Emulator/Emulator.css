@@ -11,3 +11,9 @@
   height: 100vh;
   margin-left: -2px;
 }
+
+.emulator-frame-wrapper {
+  margin-top: -8px;
+  height: 93.5%;
+  margin-left: 74px;
+}

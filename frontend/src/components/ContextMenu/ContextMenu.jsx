@@ -3,10 +3,14 @@ import './ContextMenu.css';
 
 const ContextMenu = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [position, setPosition] = useState({ top: 0, left: 0 }); // Add this line
   const contextMenuRef = useRef(null);
 
-  const toggleContextMenu = () => {
+  const toggleContextMenu = (event) => {
     setIsVisible(!isVisible);
+    const clickX = event.clientX;
+    const clickY = event.clientY;
+    setPosition({ top: clickY, left: clickX });
   };
 
   const closeContextMenu = () => {
@@ -45,7 +49,7 @@ const ContextMenu = () => {
         <img className='context-menu-icon' src='/src/assets/vertical.svg'/>
       </div>
       {isVisible && (
-        <div className="context-menu" onClick={closeContextMenu}>
+        <div className="context-menu" style={{ top: position.top, left: position.left }} onClick={closeContextMenu}>
           <ul>
             <li onClick={handleMenuDownload}>
               <p className='context-text'>Download</p>

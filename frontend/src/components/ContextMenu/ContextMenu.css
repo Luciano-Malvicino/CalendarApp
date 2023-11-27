@@ -11,14 +11,14 @@
 }
 
 .context-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
+  position: fixed;
+  top: 0; /* Adjust as needed based on your design */
+  left: 0; /* Adjust as needed based on your design */
   display: block;
   width: 200px;
   background-color: #B1BBD4;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  z-index: 100; /* Make sure the z-index is higher than other elements */
 }
 
 .context-menu ul {
