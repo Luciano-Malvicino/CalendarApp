@@ -15,7 +15,13 @@ function Description({ selectedGame }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/gameinfo?selectedGame=${selectedGame}`);
+        const response = await fetch(`https://localhost:3000/api/gameinfo?selectedGame=${selectedGame}`, {
+          method: 'GET',
+          credentials: 'include', // Add this line to include credentials
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
         if (response.ok) {
           const data = await response.json();
           setSelectedGameInfo(data);

@@ -20,9 +20,10 @@ function PasswordForm({token}) {
         }
   
         try {
-          const response = await fetch('http://localhost:3000/api/verifyToken', {
+          const response = await fetch('https://localhost:3000/api/verifyToken', {
             method: 'POST',
-            headers: {
+            credentials : 'include',
+            headers : {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({ token }),
@@ -55,8 +56,9 @@ function PasswordForm({token}) {
         console.log('Attempting Password Change');
         event.preventDefault(); // Prevent the default form submission behavior
         
-        const response = await fetch('http://localhost:3000/api/Reset',{
+        const response = await fetch('https://localhost:3000/api/Reset',{
           method: 'POST',
+          credentials : 'include',
           headers : {
             'Content-Type': 'application/json',
           },

@@ -11,8 +11,8 @@ import Forgot from './components/logreg/Forgot.jsx';
 import Password from './components/logreg/Password.jsx';
 import GameList from './components/GameLibrary/GameList.jsx';
 import Emulator from './components/Emulator/Emulator.jsx';
-import SaveList from './components/SaveList/SaveList';
-import UserSaves from './components/UserSaves/UserSaves'
+import SaveList from './components/SaveList/SaveList.jsx';
+import UserSaves from './components/UserSaves/UserSaves.jsx';
 import Testt from './components/Testt';
 
 

@@ -15,34 +15,35 @@ function LoginForm() {
       try{
         event.preventDefault(); // Prevent the default form submission behavior
         
-        const response = await fetch('http://localhost:3000/api/login',{
+        const response = await fetch('https://localhost:3000/api/login',{
           method: 'POST',
+          credentials : 'include',
           headers : {
             'Content-Type': 'application/json',
           },
           body : JSON.stringify({username , password})
         });
 
-      if(response.ok)
-      {
-        const data = await response.json();
-
-        if(data.success == true)
+        if(response.ok)
         {
-          console.log("Logged In")
-          navigate ('/Test');
-        }
-        else
-        {
-          console.log("failed to login")
-        }
+          const data = await response.json();
 
+          if(data.success == true)
+          {
+            console.log("Logged In")
+            navigate ('/GameList');
+          }
+          else
+          {
+            console.log("failed to login")
+          }
+
+        }
       }
-    }
-    catch {
-      return
-    }
-  }
+      catch {
+        return
+      }
+    } 
     return (
       <form className='login-reg-form' onSubmit={handleLogin}>
         <div className="input-container">

@@ -4,25 +4,16 @@ function Testt() {
   // Move the handleLogin function inside the component scope
   const handleLogin = async (event) => {
     try {
-      console.log('hello1');
-      event.preventDefault();
-
-      const response = await fetch('http://localhost:3000/api/getAllFiles', {
-        method: 'POST',
+      const pokemonResponse = await fetch('https://localhost:3000/api/listFiles?selectedPath=/pokemon/', {
+        method: 'GET',
+        credentials: 'include', // Add this line to include credentials
         headers: {
           'Content-Type': 'application/json',
         },
       });
 
-      if (response.ok) {
-        const data = await response.json();
-
-        if (data.success === true) {
-          console.log('Logged In');
-        } else {
-          console.log('Failed to login');
-        }
-      }
+      const responseData = await pokemonResponse.text();
+      console.log(responseData);
     } catch (error){
       console.error('Error during fetch:', error);
       return;

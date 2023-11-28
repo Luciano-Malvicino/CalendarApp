@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import './SideNav.css'
 
 function selectNavItem(event) {
@@ -7,6 +7,9 @@ function selectNavItem(event) {
   navItems.forEach(item => item.classList.remove('selected'));
   event.currentTarget.classList.add('selected');
 }
+
+
+  
 
 function SideNav({ id }) {
   const [isMobileMenuVisible, setMobileMenuVisibility] = useState(false);
@@ -16,6 +19,25 @@ function SideNav({ id }) {
     setSelectedId(id);
   }, [id]);
 
+  const navigate  = useNavigate ();
+
+  const logout = async () => {
+    try {
+      const response = await fetch(`https://localhost:3000/api/logout`, {
+        method: 'GET',
+        credentials: 'include', // Add this line to include credentials
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if(response.ok) {
+        navigate ('/Login');
+      }
+    } catch(error){
+  
+    }
+  }
+  
 
 
   const toggleMobileMenu = () => {
@@ -97,7 +119,7 @@ function SideNav({ id }) {
     <div className='top-nav'>
       <div className='top-div'>
         <p className='p-styles'>Emu Cloud</p>
-        <img className='logout-svg' src='/src/assets/logout.svg'/>
+        <img className='logout-svg' src='/src/assets/logout.svg' onClick={logout}/>
       </div>
       <hr className='top-line'/>
     </div>

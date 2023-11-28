@@ -6,7 +6,7 @@ import './Emulator.css';
 const Emulator = () => {
   const { file } = useFile();
 
-  const iframeSrc = `/src/components/Emulator/index.html?romFile=${encodeURIComponent('Mario-Kart.gba')}`;
+  const iframeSrc = `/src/components/Emulator/index.html?romFile=${encodeURIComponent(file.name)}`;
 
   return (
     <div className='emulator-wrapper'>

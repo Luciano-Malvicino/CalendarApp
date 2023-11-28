@@ -17,15 +17,75 @@ const ContextMenu = () => {
     setIsVisible(false);
   };
 
-  const handleMenuDelete = () => {
-    // Handle menu item click actions here
-    console.log('Clicked on:', action);
+  const handleMenuDelete = async (event) => {
+    const gameName = event.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.dataset.game;
+    console.log(gameName);
+    const fileName = event.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.dataset.file;
+    console.log(fileName);
+
+    const response = await fetch(`https://localhost:3000/api/deleteFile`, {
+      method: 'POST',
+      credentials: 'include', // Add this line to include credentials
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body : JSON.stringify({'gameName' : '/' + gameName + '/','fileName' : fileName + '.state'}),
+    });
+
+    const data = await response.json();
+
+    if(response.ok)
+    {
+      console.log("Deleting");
+      const container = event.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement
+      if(data.success)
+      {
+        if(container)
+        {
+          container.remove();
+        }
+      }
+    }
+
+    console.log("Done");
     closeContextMenu();
   };
 
-  const handleMenuDownload = () => {
+  const handleMenuDownload = async (event) => {
     // Handle menu item click actions here
-    console.log('Clicked on:', action);
+    const gameName = event.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.dataset.game;
+    console.log(gameName);
+    const fileName = event.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.dataset.file;
+    console.log(fileName);
+
+    const response = await fetch(`https://localhost:3000/api/downloadFile`, {
+      method: 'POST',
+      credentials: 'include', // Add this line to include credentials
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body : JSON.stringify({'gameName' : '/' + gameName + '/','fileName' : fileName + '.state'}),
+    });
+
+    const file = await response.blob();
+
+    if(response.ok)
+    {
+      console.log("Test");
+      const blobUrl = URL.createObjectURL(file);
+
+      // Create a link element
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download =  fileName + '.state';
+
+      // Trigger a click on the link to start the download
+      link.click();
+
+      // Clean up: revoke the Blob URL
+      URL.revokeObjectURL(blobUrl);
+    }
+
     closeContextMenu();
   };
 

@@ -16,8 +16,9 @@ function RegisterForm() {
       try{
         event.preventDefault(); // Prevent the default form submission behavior
         
-        const response = await fetch('http://localhost:3000/api/Register',{
+        const response = await fetch('https://localhost:3000/api/Register',{
           method: 'POST',
+          credentials: 'include',
           headers : {
             'Content-Type': 'application/json',
           },
